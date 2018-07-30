@@ -1,12 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
 
-
-/**
- * First in first out (served) scheduler
- * Non preemptive
- * First process in is served first
- */
-public class FIFO {
+public class Scheduler {
     /*
     list that stores the queue of processes
      */
@@ -40,4 +34,5 @@ public class FIFO {
     public FIFO(ArrayList<Process> p) {
 
     }
+
 }

@@ -7,7 +7,7 @@ import java.util.List;
  *https://www.youtube.com/watch?v=DvF3AsTglUU
  *https://github.com/search?q=cpu+scheduler+fifo
  *
- *https://github.com/ElvisGarcia079/Virtualization/blob/master/Scheduler.java
+ * https://github.com/ElvisGarcia079/Virtualization/blob/master/Scheduler.java
  * https://github.com/rrqq/cpu-scheduler
  *
  * runnable is for managing multiple threads

@@ -1,0 +1,102 @@
+import java.util.ArrayList;	
+ /**	
+ * Round robin scheduler	
+ * Non preemptive	
+ */	
+public class FIFO {	
+    /*	
+    List that stores the queue of processes	
+     */	
+    private ArrayList<Process> readyQ;	
+    /*
+    Saves from the time of start to the time of completion for each turnaround T
+     */
+    private ArrayList<Int> turnaroundT; 
+    /*
+    Saves from the time of start to the time of completion for each response T
+     */
+    private ArrayList<Int> responseT;
+    /*	
+    Total elapsed time for FIFO scheduler	
+     */	
+    private double elapsedT;	
+    /*	
+    Number of processes completed per ms	
+     */	
+    private double throughput;	
+    /*	
+    CPU utilization as a decimal	
+     */	
+    private double utilization;	
+    /*	
+    Average time a process spends in the ready queue in ms	
+     */	
+    private double avgWait;	
+    /*	
+    Average time a process takes to execute in ms	
+     */	
+    private double avgTurnaround;	
+    /*	
+    Average time a process takes from submission to start responding	
+     */	
+    private double avgResponse;	
+
+
+    public FIFO(ArrayList<Process> joblist) {
+        this.readyQ = joblist;
+        this.turnaroundT = turnaroundT;
+        this.elapsedT = 0.0;
+        this.throughput = 0.0;
+        this.utilization = 0.0; 
+        this.avgWait = 0.0; 
+        this.avgTurnaround = 0.0; 
+        this.avgResponse = 0.0;
+    }
+
+    // Turnaround Time vs Response Time:
+    // Turnaround time is the amount of time elapsed from the time of submission to the time of completion  
+    // response time is the average time elapsed from submission till the first response is produced.
+
+    //turnaround time = time of completion - time of submission 
+    //response time = time of submission (arrival time ) - time of first response 
+    private calcTurnaround() {
+        //start turnaround T = 0 
+        int tempTT  = 0; 
+        for (int i = 0; i < readyQ.size(); i++) {
+           //current job 
+           Process curr = new Process(readyQ.get(i).getArrivalTime(), readyQ.get(i).getBurstLength(), readyQ.get(i).getPriority());
+           tempTT += curr.getBurstLength();
+           turnaroundT.add(tempTT); 
+        }
+
+    }
+
+
+
+    public double getET() {
+
+    }
+
+    public double getThroughput() {
+
+    }
+
+    public double getUtil() {
+
+    }
+
+    public double getAvgW() {
+
+    }
+
+    public double getAvgTurn() {
+
+    }
+
+    public double getAvgR() {
+
+
+    }
+
+
+}

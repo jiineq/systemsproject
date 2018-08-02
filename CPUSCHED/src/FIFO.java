@@ -40,8 +40,7 @@ public class FIFO  {
         //System.out.println("CPU utilization: " );
 
 
-        String outp = "Statistics for the Run\n" + "Number of processes: " + jobs.size() + "\nTotal elapsed time (for the scheduler):\n" + "Throughput: \n" + "CPU utilization: " + "\nAverage waiting time: " + (double)wait/jobs.size() + "\nAverage turnaround time: " + (double)turnaround/jobs.size() + "\nAverage response time: "+ (double)wait/jobs.size();//+ //(double)wait/jobs.size();
-        return outp;
+        return "Statistics for the Run\n" + "Number of processes: " + jobs.size() + "\nTotal elapsed time (for the scheduler):\n" + "Throughput: \n" + "CPU utilization: " + "\nAverage waiting time: " + (double)wait/jobs.size() + "\nAverage turnaround time: " + (double)turnaround/jobs.size() + "\nAverage response time: "+ (double)wait/jobs.size();//+ //(double)wait/jobs.size();
 
     }
 

@@ -164,12 +164,12 @@
         <option value="$PROJECT_DIR$/src/Priority.java" />
         <option value="$PROJECT_DIR$/src/Parser.java" />
         <option value="$PROJECT_DIR$/src/Scheduler.java" />
-        <option value="$PROJECT_DIR$/src/FIFO.java" />
         <option value="$PROJECT_DIR$/src/SJF.java" />
         <option value="$PROJECT_DIR$/src/Run.java" />
         <option value="$PROJECT_DIR$/src/Process.java" />
         <option value="$PROJECT_DIR$/src/PR.java" />
         <option value="$PROJECT_DIR$/src/RR.java" />
+        <option value="$PROJECT_DIR$/src/FIFO.java" />
       </list>
     </option>
   </component>

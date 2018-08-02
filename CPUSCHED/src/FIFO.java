@@ -1,7 +1,7 @@
 import java.util.LinkedList;
 /**
- * FIFO/FCFS scheduler
- * Non preemptive
+ * FIFO/FCFS scheduler    
+ * Non preemptive   
  */
 public class FIFO  {
 
@@ -34,7 +34,7 @@ public class FIFO  {
         }
 
 
-        //TODO:
+        //TODO: 
         //System.out.println("Total elapsed time (for the scheduler):");
         //System.out.println("Throughput: " + (double)jobs.size()/totaltime*60);
         //System.out.println("CPU utilization: " );

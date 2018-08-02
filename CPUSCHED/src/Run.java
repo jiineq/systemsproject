@@ -25,13 +25,12 @@ public class Run {
 
         //collects from CLI for hashmap
         //THIS WORKS!
-        for (String value:args) {
+        for (String value : args) {
             if (value.charAt(0) == '-') {
                 key = value;
                 // System.out.println(teststring);
 
-            }
-            else {
+            } else {
                 if (key.equals("")) {
                     throw new RuntimeException("Invalid arguments");
                 }
@@ -62,14 +61,13 @@ public class Run {
                     burst = Integer.parseInt(scannedLine.next());
                     priority = Integer.parseInt(scannedLine.next());
                     Process p = new Process(index, arrival, burst, priority);
-                    jobs.add(p);					}
+                    jobs.add(p);
+                }
 
             }
             scan.close();
 
-        }
-
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.print("this doesn't work");
         }
@@ -84,14 +82,10 @@ public class Run {
             // SJF sjf = new SJF(jobs);
             // sjf.calcSJF();
 
-        }
-
-        else if (algorithm.equalsIgnoreCase("PR")) {
+        } else if (algorithm.equalsIgnoreCase("PR")) {
             // PR pr = new PR(jobs);
             // pr.calcPR();
-        }
-
-        else if (algorithm.equalsIgnoreCase("RR")) {
+        } else if (algorithm.equalsIgnoreCase("RR")) {
             // RR rr = new RR(jobs, quantum);
             // rr.calcRR();
         }
@@ -107,7 +101,5 @@ public class Run {
 
         System.out.println(save);
 
-
     }
-
 }

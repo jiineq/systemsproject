@@ -1,0 +1,6 @@
+Statistics for the Run
+Total elapsed time (for the scheduler): 
+Throughput: 
+Average waiting time: 
+Average turnaround time: 
+Average response time: 

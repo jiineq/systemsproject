@@ -1,86 +1,117 @@
 import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Round robin scheduler	
- * Non preemptive	
+ * preemptive
  */
 public class RR {
-    /*	
-    List to store the queue of processes	
-     */
-    private LinkedList<Process> readyQ;
-    /*
-    List of incoming processes 
-     */
+
     private LinkedList<Process> jobs;
-    private LinkedList<Process> completed;
+    private LinkedList<Process> readyQ;
+    private LinkedList<Integer> arrivalTime ;
+    private Map<Integer, Integer> responseTime = new HashMap<Integer, Integer>();
     private int quantum;
-    private int contextSwitch;
-    private int timer;
-    private int count;
-    private Process proc;
+
 
     public RR(LinkedList<Process> jobslist, int q) {
-        this.quantum = q;
         this.jobs = jobslist;
-        timer = 0;
-        contextSwitch = 0;
-        readyQ = new LinkedList<>();
-        completed = new LinkedList<>();
-        proc = null;
+        this.quantum = q;
+
     }
 
-    public void calcRR() {
+    public int arrMin(LinkedList<Process> p) {
+        int min = p.get(0).getArrivalTime();
+        for (Process proc : p) {
+            if (proc.getArrivalTime() < min) {
+                min = proc.getArrivalTime();
+            }
+        }
+        return min;
+    }
 
-        while(!readyQ.isEmpty() || !jobs.isEmpty() || proc != null) {
+    private void sortJobs(LinkedList<Process> joblist, int returnAux) {
+        int min = 0;
 
-            for (int i = 0; i < jobs.size(); i++) {
-                if (jobs.get(i).getArrivalTime()==timer) {
-                    readyQ.add(jobs.remove(i));
+        for (Process proc : joblist) {
+            if (!arrivalTime.contains(proc.getArrivalTime()) && proc.getArrivalTime() <= returnAux) {
+                if (!readyQ.contains(proc)) {
+                    min = proc.getArrivalTime();
+                    arrivalTime.add(min);
+                    for (Process p2 : joblist) {
+                        if (p2.getArrivalTime() == min) {
+                            readyQ.add(p2);
+                        }
+                    }
                 }
             }
+        }
+    }
 
-            if (proc == null) {
-                proc = readyQ.remove(0);
+    private int calcTotalResponse() {
+        int sum = 0;
+        for (int key : responseTime.keySet()) {
+            sum += responseTime.get(key);
+        }
+        return sum;
+
+
+    }
+    public String calcRR() {
+
+        int turnaround = 0;
+        int wait = 0;
+        int arr = arrMin(jobs);
+        int remainingBurst = 0;
+        int numProcesses = jobs.size();
+
+        sortJobs(jobs, arr);
+
+        while (!readyQ.isEmpty()) {
+            Process p = readyQ.remove(0);
+
+            //key: processo
+            //value: tempo em que foi atendido
+            if (!responseTime.containsKey(p.getID())) {
+                responseTime.put(p.getID(), arr - p.getArrivalTime());
             }
 
-            count++;
-            proc.timeElapsed++;
+            if (p.getRemainingBurst() > quantum) {
+                p.setRemainingBurst(p.getRemainingBurst() - quantum);
+                arr += quantum;
+                sortJobs(jobs, arr);
 
-            if (proc.burstLength == proc.timeElapsed) {
-                proc.completion = timer;
-                completed.add(proc);
-                proc = null;
-                contextSwitch++;
-                count = 0;
+                readyQ.add(p);
+            } else {
+                arr += p.getRemainingBurst();
             }
 
-            else if (count == quantum) {
-                readyQ.add(proc);
-                proc = null;
-                contextSwitch++;
-                count = 0;
+            if (!readyQ.contains(p)) {
+                turnaround += (arr - p.getArrivalTime());
+                wait += (arr - p.getArrivalTime() - p.getBurstLength());
             }
-            timer++;
-
         }
 
-        double turnaroundTotal = 0.0;
-        double waitTotal = 0.0;
-        double util = 0.0;
+        double avgTurnaround = ((double) turnaround / numProcesses);
+        double setAvgResponse = ((double) calcTotalResponse() / numProcesses);
+        double avgWait = ((double) wait / numProcesses);
 
-        for (int i = 0; i < completed.size(); i++) {
-            turnaroundTotal += completed.get(i).completion - completed.get(i).getArrivalTime();
-            waitTotal += (completed.get(i).completion - completed.get(i).getArrivalTime()) - completed.get(i).burstLength;
-            util += completed.get(i).burstLength;
-        }
 
-        double avgTurnaround = turnaroundTotal/completed.size();
-        double avgWait = waitTotal/completed.size();
-        double cpuUtil = (util - (contextSwitch*0.01))/timer;
-        double throughput = (double)completed.size()/timer;
+//        for (int i = 0; i < completed.size(); i++) {
+//            turnaroundTotal += completed.get(i).completion - completed.get(i).getArrivalTime();
+//            waitTotal += (completed.get(i).completion - completed.get(i).getArrivalTime()) - completed.get(i).burstLength;
+//            util += completed.get(i).burstLength;
+//        }
 
-        System.out.println(avgTurnaround);
-        System.out.println(avgWait);
+//        double avgTurnaround = turnaroundTotal/completed.size();
+//        double avgWait = waitTotal/completed.size();
+//        double cpuUtil = (util - (contextSwitch*0.01))/timer;
+//        double throughput = (double)completed.size()/timer;
+//
+//        System.out.println(avgTurnaround);
+//        System.out.println(avgWait);
+        return "adsf";
 
 
     }

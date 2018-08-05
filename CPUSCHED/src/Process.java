@@ -1,9 +1,9 @@
 //test
 public class Process {
-    private int processID;
-    private int arrivalTime;
+    public int processID;
+    public int arrivalTime;
     public int burstLength;
-    private int priority;
+    public int priority;
 
 
     public Process(int arrT, int burstT, int p) {

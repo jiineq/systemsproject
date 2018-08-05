@@ -8,11 +8,16 @@ public class Run {
 
     public static void main(String[] args) throws InterruptedException, IOException, FileNotFoundException {
 
+    	long millisStart = Calendar.getInstance().getTimeInMillis();
+    	
         String teststring = "this is a test string to check if things are working";
 
         Map<String, String> map = new HashMap<>();
         LinkedList<Process> jobs = new LinkedList<Process>();
         String key = "";
+        
+        Process job[] = new Process[10000];
+        int jobN = 0;
 
 		/*
 		 * collects from CLI for hashmap
@@ -50,6 +55,7 @@ public class Run {
 
             while (scan.hasNextLine()) {
                 String line = scan.nextLine();
+                //System.out.println(line);
                 Scanner scannedLine = new Scanner(line);
                 if (scannedLine.hasNextInt()) {
                     int index = Integer.parseInt(scannedLine.next());
@@ -57,18 +63,18 @@ public class Run {
                     int burst = Integer.parseInt(scannedLine.next());
                     int priority = Integer.parseInt(scannedLine.next());
                     Process p = new Process(index, arrival, burst, priority);
-                    jobs.add(p);					}
+                    jobs.add(p);	
+                    job[jobN] = p;
+                    jobN++;
+                }
 
             }
             scan.close();
-
         }
-
         catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.print("this doesn't work");
         }
-
         String results = "";
 
         if (algorithm.equalsIgnoreCase("FIFO")) {
@@ -78,9 +84,12 @@ public class Run {
 
         //TODO
         else if (algorithm.equalsIgnoreCase("SJF")) {
-            // SJF sjf = new SJF(jobs);
+             //SJF sjf = new SJF(jobs);
             // results = sjf.calcSJF();
-
+        	//System.out.println("heyLLdksakdjsa");
+        	SJF sjf = new SJF();
+        	sjf.findavgTime(job, job.length);
+        	
         }
 
         else if (algorithm.equalsIgnoreCase("PR")) {
@@ -104,7 +113,7 @@ public class Run {
 
         System.out.println(results);
 
-
+        long millisEnd = Calendar.getInstance().getTimeInMillis();
     }
 
 }
